@@ -9,6 +9,11 @@ import 'package:flutter_riverpod_app/user.dart';
 //3. StateNotifier and StateNotifier Provider for complex values
 //4.change notifier provider
 //5.future provider based on http calls, even firebase calls
+//6. stream provider
+
+//widgetRef from widget to provider
+//providerRef talk from provider to another provider
+//Ref talk with other providers
 
 // ref allows us to talk with other providers
 // final nameProvider = Provider<String>((ref) => 'Brian Bravol');
@@ -25,12 +30,16 @@ final userProvider = StateNotifierProvider<UserNofifier, User>(
 // final userChangeNotifierProvider =
 //     ChangeNotifierProvider((ref) => UserNotifierChange());
 
-final fetchUserProvider = FutureProvider((ref) {
+final fetchUserProvider =
+    FutureProvider.family.autoDispose((ref, String input) {
   // return UserRepository().fetchUserData();
-
 //u can access every provider
   final userRepository = ref.watch(userRepositoryProvider);
   return userRepository.fetchUserData();
+});
+
+final streamProvider = StreamProvider((ref) async* {
+  yield [1, 2, 3, 4, 5, 6, 7, 8, 9, 10];
 });
 
 void main() {

@@ -79,7 +79,7 @@ final userRepositoryProvider = Provider((ref) => UserRepository());
 
 class UserRepository {
   Future<User> fetchUserData() {
-    const url = 'https://jsonplaceholder.typicode.com/user';
+    const url = 'https://jsonplaceholder.typicode.com/users/1';
     return http.get(Uri.parse(url)).then((value) => User.fromJson(value.body));
   }
 }
